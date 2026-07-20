@@ -163,6 +163,26 @@ export default function ChatWindow(){
         </div>
       )}
 
+      {/* book consultation CTA — appears once qualified */}
+      {lead?.country && lead?.course && (
+        <div className="px-6 py-4 border-b border-[#C9973E]/20 bg-[#C9973E]/5 animate-[fadeIn_0.4s_ease-out]">
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <p className="font-mono text-[9px] tracking-widest uppercase text-[#C9973E] mb-1">Ready to board</p>
+              <p className="text-sm text-[#F7F1E4]">You're qualified — book a free consultation to move forward.</p>
+            </div>
+            
+              href="https://calendly.com/shaileshbhattarai789/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 bg-[#C9973E] text-[#0B1E3D] font-medium text-xs px-4 py-2.5 rounded-lg hover:bg-[#d9a94f] transition-colors whitespace-nowrap"
+            >
+              Book Consultation →
+            </a>
+          </div>
+        </div>
+      )}
+
       <div className="min-h-[280px] max-h-[420px] overflow-y-auto px-6 py-6 space-y-3">
 
         {
