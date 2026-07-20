@@ -131,25 +131,25 @@ export default function ChatWindow(){
 
     <div className="bg-[#0B1E3D] rounded-2xl border border-[#C9973E]/30 overflow-hidden shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]">
 
-      <div className="flex items-center justify-between px-6 py-3 border-b border-[#C9973E]/20">
-        <p className="font-mono text-[10px] tracking-widest uppercase text-[#C9973E]">Enquiry Desk</p>
+      <div className="flex items-center justify-between px-4 md:px-6 py-3 border-b border-[#C9973E]/20">
+        <p className="font-mono text-[9px] md:text-[10px] tracking-widest uppercase text-[#C9973E]">Enquiry Desk</p>
         <div className="flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-[#4ADE80] animate-pulse"></span>
-          <p className="font-mono text-[10px] tracking-widest uppercase text-[#F7F1E4]/50">Live</p>
+          <p className="font-mono text-[9px] md:text-[10px] tracking-widest uppercase text-[#F7F1E4]/50">Live</p>
         </div>
       </div>
 
       {originInfo && (
         <div
           key={lead.country + (lead.destination || "")}
-          className="flex items-center justify-between px-6 py-3 border-b border-[#C9973E]/20 bg-[#F7F1E4]/5 animate-[fadeIn_0.4s_ease-out]"
+          className="flex items-center justify-between px-4 md:px-6 py-2.5 md:py-3 border-b border-[#C9973E]/20 bg-[#F7F1E4]/5 animate-[fadeIn_0.4s_ease-out]"
         >
-          <div className="flex items-center gap-2">
-            <span className="text-lg">{originInfo.flag}</span>
-            <span className="font-mono text-xs text-[#F7F1E4]/70">{originInfo.code}</span>
+          <div className="flex items-center gap-1.5 md:gap-2">
+            <span className="text-base md:text-lg">{originInfo.flag}</span>
+            <span className="font-mono text-[10px] md:text-xs text-[#F7F1E4]/70">{originInfo.code}</span>
           </div>
 
-          <div className="relative flex-1 mx-4 h-4">
+          <div className="relative flex-1 mx-2 md:mx-4 h-4">
             <svg viewBox="0 0 200 16" className="w-full h-full overflow-visible">
               <line
                 x1="0" y1="8" x2="200" y2="8"
@@ -157,26 +157,26 @@ export default function ChatWindow(){
                 strokeDasharray="5 5"
               />
             </svg>
-            <div className="absolute top-1/2 -translate-y-1/2 text-sm animate-flyPlane">✈️</div>
+            <div className="absolute top-1/2 -translate-y-1/2 text-xs md:text-sm animate-flyPlane">✈️</div>
           </div>
 
-          <div className="flex items-center gap-2">
-            <span className="font-mono text-xs text-[#F7F1E4]/70">{destInfo.code}</span>
-            <span className="text-lg">{destInfo.flag}</span>
+          <div className="flex items-center gap-1.5 md:gap-2">
+            <span className="font-mono text-[10px] md:text-xs text-[#F7F1E4]/70">{destInfo.code}</span>
+            <span className="text-base md:text-lg">{destInfo.flag}</span>
           </div>
         </div>
       )}
 
       {lead?.country && lead?.course && (
-        <div className="px-6 py-4 border-b border-[#C9973E]/20 bg-[#C9973E]/5 animate-[fadeIn_0.4s_ease-out]">
-          <div className="flex items-center justify-between gap-4">
+        <div className="px-4 md:px-6 py-3 md:py-4 border-b border-[#C9973E]/20 bg-[#C9973E]/5 animate-[fadeIn_0.4s_ease-out]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4">
             <div>
-              <p className="font-mono text-[9px] tracking-widest uppercase text-[#C9973E] mb-1">Ready to board</p>
-              <p className="text-sm text-[#F7F1E4]">You're qualified — book a free consultation to move forward.</p>
+              <p className="font-mono text-[8px] md:text-[9px] tracking-widest uppercase text-[#C9973E] mb-1">Ready to board</p>
+              <p className="text-xs md:text-sm text-[#F7F1E4]">You're qualified — book a free consultation to move forward.</p>
             </div>
             <button
               onClick={openBooking}
-              className="shrink-0 bg-[#C9973E] text-[#0B1E3D] font-medium text-xs px-4 py-2.5 rounded-lg hover:bg-[#d9a94f] transition-colors whitespace-nowrap"
+              className="shrink-0 bg-[#C9973E] text-[#0B1E3D] font-medium text-xs px-4 py-2.5 rounded-lg hover:bg-[#d9a94f] transition-colors whitespace-nowrap self-start sm:self-auto"
             >
               Book Consultation →
             </button>
@@ -184,17 +184,17 @@ export default function ChatWindow(){
         </div>
       )}
 
-      <div className="min-h-[280px] max-h-[420px] overflow-y-auto px-6 py-6 space-y-3">
+      <div className="min-h-[260px] max-h-[380px] md:min-h-[280px] md:max-h-[420px] overflow-y-auto px-4 md:px-6 py-4 md:py-6 space-y-3">
 
         {
           messages.map((msg, index) => (
             <div key={index} className={"flex flex-col " + (msg.role === "assistant" ? "items-start" : "items-end")}>
-              <p className="font-mono text-[9px] tracking-widest uppercase text-[#F7F1E4]/30 mb-1 px-1">
+              <p className="font-mono text-[8px] md:text-[9px] tracking-widest uppercase text-[#F7F1E4]/30 mb-1 px-1">
                 {msg.role === "assistant" ? "Desk" : "You"}
               </p>
               <div
                 className={
-                  "max-w-[80%] px-4 py-3 rounded-xl text-sm leading-relaxed animate-[fadeIn_0.3s_ease-out] " +
+                  "max-w-[88%] md:max-w-[80%] px-3.5 md:px-4 py-2.5 md:py-3 rounded-xl text-xs md:text-sm leading-relaxed animate-[fadeIn_0.3s_ease-out] " +
                   (msg.role === "assistant"
                     ? "bg-[#F7F1E4]/10 text-[#F7F1E4] border border-[#F7F1E4]/10"
                     : "bg-[#C9973E] text-[#0B1E3D] font-medium")
@@ -209,7 +209,7 @@ export default function ChatWindow(){
         {
           loading && (
             <div className="flex flex-col items-start">
-              <p className="font-mono text-[9px] tracking-widest uppercase text-[#F7F1E4]/30 mb-1 px-1">Desk</p>
+              <p className="font-mono text-[8px] md:text-[9px] tracking-widest uppercase text-[#F7F1E4]/30 mb-1 px-1">Desk</p>
               <div className="bg-[#F7F1E4]/10 border border-[#F7F1E4]/10 px-4 py-3 rounded-xl flex gap-1">
                 <span className="w-1.5 h-1.5 bg-[#C9973E] rounded-full animate-bounce [animation-delay:-0.3s]"></span>
                 <span className="w-1.5 h-1.5 bg-[#C9973E] rounded-full animate-bounce [animation-delay:-0.15s]"></span>
@@ -221,10 +221,10 @@ export default function ChatWindow(){
 
       </div>
 
-      <div className="flex gap-2 px-5 py-4 border-t border-[#C9973E]/20 bg-[#0B1E3D]">
+      <div className="flex gap-2 px-3 md:px-5 py-3 md:py-4 border-t border-[#C9973E]/20 bg-[#0B1E3D]">
 
         <input
-          className="bg-[#F7F1E4]/5 border border-[#F7F1E4]/15 text-[#F7F1E4] placeholder:text-[#F7F1E4]/30 rounded-lg px-4 py-3 flex-1 text-sm focus:outline-none focus:border-[#C9973E]/50"
+          className="bg-[#F7F1E4]/5 border border-[#F7F1E4]/15 text-[#F7F1E4] placeholder:text-[#F7F1E4]/30 rounded-lg px-3 md:px-4 py-2.5 md:py-3 flex-1 text-xs md:text-sm focus:outline-none focus:border-[#C9973E]/50 min-w-0"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleKeyDown}
@@ -234,7 +234,7 @@ export default function ChatWindow(){
         <button
           onClick={sendMessage}
           disabled={loading}
-          className="bg-[#C9973E] text-[#0B1E3D] font-medium px-5 rounded-lg text-sm disabled:opacity-50 hover:bg-[#d9a94f] transition-colors"
+          className="bg-[#C9973E] text-[#0B1E3D] font-medium px-4 md:px-5 rounded-lg text-xs md:text-sm disabled:opacity-50 hover:bg-[#d9a94f] transition-colors shrink-0"
         >
           Send
         </button>
