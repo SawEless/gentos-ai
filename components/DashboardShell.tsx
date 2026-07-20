@@ -8,6 +8,7 @@ interface Lead {
   created_at: string;
   name: string;
   country: string;
+  destination: string;
   education: string;
   course: string;
   intake: string;
@@ -22,9 +23,25 @@ const FLAGS: Record<string, string> = {
   japan: "🇯🇵", thailand: "🇹🇭", malaysia: "🇲🇾", brazil: "🇧🇷",
 };
 
+const DEST_INFO: Record<string, { code: string; flag: string }> = {
+  australia: { code: "SYD", flag: "🇦🇺" },
+  "united kingdom": { code: "LON", flag: "🇬🇧" },
+  uk: { code: "LON", flag: "🇬🇧" },
+  canada: { code: "TOR", flag: "🇨🇦" },
+  "united states": { code: "NYC", flag: "🇺🇸" },
+  usa: { code: "NYC", flag: "🇺🇸" },
+  "new zealand": { code: "AKL", flag: "🇳🇿" },
+};
+
 function flagFor(country: string) {
   if (!country) return "🌍";
   return FLAGS[country.trim().toLowerCase()] || "🌍";
+}
+
+function destFor(destination: string) {
+  if (!destination) return { code: "—", flag: "🌍" };
+  const key = destination.trim().toLowerCase();
+  return DEST_INFO[key] || { code: destination.slice(0, 3).toUpperCase(), flag: "🌍" };
 }
 
 function initials(name: string) {
@@ -69,6 +86,7 @@ function CountUp({ value }: { value: number }) {
 
 function BoardingPassPanel({ lead, onClose }: { lead: Lead; onClose: () => void }) {
   const flag = flagFor(lead.country);
+  const dest = destFor(lead.destination);
   const qualified = Boolean(lead.country && lead.course);
 
   return (
@@ -102,8 +120,8 @@ function BoardingPassPanel({ lead, onClose }: { lead: Lead; onClose: () => void 
 
               <div className="text-right">
                 <p className="font-mono text-[10px] tracking-widest text-[#0B1E3D]/40 uppercase">Destination</p>
-                <p className="font-display text-3xl text-[#0B1E3D]">🇦🇺</p>
-                <p className="font-mono text-xs text-[#0B1E3D]/60 mt-1">Australia</p>
+                <p className="font-display text-3xl text-[#0B1E3D]">{dest.flag}</p>
+                <p className="font-mono text-xs text-[#0B1E3D]/60 mt-1">{lead.destination || "Not chosen yet"}</p>
               </div>
             </div>
 
@@ -212,10 +230,10 @@ export default function DashboardShell({ leads, error }: { leads: Lead[]; error?
   const qualifiedCount = leads.filter(l => l.country && l.course).length;
 
   function exportToCSV() {
-    const headers = ["Name", "Country", "Education", "Course", "Intake", "Contact", "Notes", "Created At"];
+    const headers = ["Name", "Country", "Destination", "Education", "Course", "Intake", "Contact", "Notes", "Created At"];
 
     const rows = filtered.map(l => [
-      l.name, l.country, l.education, l.course, l.intake, l.contact, l.notes, l.created_at
+      l.name, l.country, l.destination, l.education, l.course, l.intake, l.contact, l.notes, l.created_at
     ]);
 
     const csvContent = [headers, ...rows]
@@ -338,6 +356,7 @@ export default function DashboardShell({ leads, error }: { leads: Lead[]; error?
 
           {filtered.map((lead, i) => {
             const qualified = Boolean(lead.country && lead.course);
+            const dest = destFor(lead.destination);
             return (
               <button
                 key={lead.id}
@@ -353,8 +372,8 @@ export default function DashboardShell({ leads, error }: { leads: Lead[]; error?
                   <span>{flagFor(lead.country)}</span>
                   <span className="font-mono text-xs text-[#0B1E3D]/40">{lead.country ? lead.country.slice(0, 3).toUpperCase() : "—"}</span>
                   <span className="text-[#0B1E3D]/20">···✈···</span>
-                  <span className="font-mono text-xs text-[#0B1E3D]/40">SYD</span>
-                  <span>🇦🇺</span>
+                  <span className="font-mono text-xs text-[#0B1E3D]/40">{dest.code}</span>
+                  <span>{dest.flag}</span>
                 </span>
 
                 <span className="text-[#0B1E3D]/70 truncate">{lead.course || "—"}</span>
