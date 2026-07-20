@@ -27,7 +27,7 @@ export default function Home() {
           <div className="relative max-w-2xl mx-auto animate-fadeUp [animation-delay:0.3s]">
             <div className="relative bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(11,30,61,0.35)] border border-[#0B1E3D]/10 overflow-hidden">
 
-              <div className="flex items-center justify-between px-8 pt-7 pb-5">
+             <div className="flex items-center justify-between px-4 md:px-8 pt-6 md:pt-7 pb-4 md:pb-5 gap-2">
                 <div className="text-left">
                   <p className="font-mono text-[10px] tracking-widest text-[#0B1E3D]/40 uppercase">Origin</p>
                   <p className="font-display text-3xl">NPL</p>
@@ -53,7 +53,7 @@ export default function Home() {
 
               <div className="border-t border-dashed border-[#0B1E3D]/15 mx-6"></div>
 
-              <div className="grid grid-cols-3 gap-4 px-8 py-6 text-left">
+             <div className="grid grid-cols-3 gap-2 md:gap-4 px-4 md:px-8 py-5 md:py-6 text-left">
                 <div>
                   <p className="font-mono text-[10px] tracking-widest text-[#0B1E3D]/40 uppercase">Program</p>
                   <p className="font-medium mt-1">Master of IT</p>

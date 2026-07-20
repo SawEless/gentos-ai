@@ -254,12 +254,12 @@ export default function DashboardShell({ leads, error }: { leads: Lead[]; error?
 
       <Sidebar />
 
-      <main className="flex-1 px-10 py-10">
+      <main className="flex-1 px-4 md:px-10 py-8 md:py-10 pt-20 md:pt-10 w-full">
 
-        <div className="flex items-center justify-between mb-10 animate-fadeUp">
+        <div className="flex items-center justify-between mb-8 md:mb-10 animate-fadeUp">
           <div>
             <p className="font-mono text-[10px] tracking-widest uppercase text-[#C9973E] mb-2">Leads Manifest</p>
-            <h1 className="font-display text-4xl text-[#0B1E3D]">Every enquiry, ready to board</h1>
+            <h1 className="font-display text-2xl md:text-4xl text-[#0B1E3D]">Every enquiry, ready to board</h1>
           </div>
         </div>
 
@@ -267,7 +267,7 @@ export default function DashboardShell({ leads, error }: { leads: Lead[]; error?
           <p className="text-[#E15B3F] mb-6 font-mono text-sm">Error loading leads: {error}</p>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mb-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 mb-8 md:mb-10">
           {[
             { label: "Total Enquiries", value: totalLeads },
             { label: "This Week", value: thisWeek },
@@ -275,37 +275,37 @@ export default function DashboardShell({ leads, error }: { leads: Lead[]; error?
           ].map((stat, i) => (
             <div
               key={stat.label}
-              className="bg-white rounded-2xl border border-[#0B1E3D]/10 px-6 py-6 animate-fadeUp"
+              className="bg-white rounded-2xl border border-[#0B1E3D]/10 px-4 md:px-6 py-5 md:py-6 animate-fadeUp"
               style={{ animationDelay: `${i * 0.08}s` }}
             >
               <p className="font-mono text-[10px] tracking-widest uppercase text-[#0B1E3D]/40 mb-2">{stat.label}</p>
-              <p className="font-display text-4xl text-[#0B1E3D]">
+              <p className="font-display text-3xl md:text-4xl text-[#0B1E3D]">
                 <CountUp value={stat.value} />
               </p>
             </div>
           ))}
 
           <div
-            className="bg-[#0B1E3D] rounded-2xl px-6 py-6 animate-fadeUp"
+            className="bg-[#0B1E3D] rounded-2xl px-4 md:px-6 py-5 md:py-6 animate-fadeUp"
             style={{ animationDelay: "0.24s" }}
           >
             <p className="font-mono text-[10px] tracking-widest uppercase text-[#F7F1E4]/40 mb-2">Top Origin</p>
-            <p className="font-display text-2xl text-[#C9973E] flex items-center gap-2">
+            <p className="font-display text-xl md:text-2xl text-[#C9973E] flex items-center gap-2">
               {flagFor(topCountry)} {topCountry}
             </p>
           </div>
         </div>
 
-        <div className="flex items-center justify-between mb-6 animate-fadeUp flex-wrap gap-4" style={{ animationDelay: "0.3s" }}>
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 animate-fadeUp gap-3 md:gap-4" style={{ animationDelay: "0.3s" }}>
 
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by name, country or course..."
-            className="w-full max-w-md bg-white border border-[#0B1E3D]/10 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-[#C9973E]/50"
+            className="w-full md:max-w-md bg-white border border-[#0B1E3D]/10 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-[#C9973E]/50"
           />
 
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-2 items-center flex-wrap">
             {[
               { key: "all", label: "All" },
               { key: "qualified", label: "Qualified" },
@@ -327,7 +327,7 @@ export default function DashboardShell({ leads, error }: { leads: Lead[]; error?
 
             <button
               onClick={exportToCSV}
-              className="px-4 py-2 rounded-lg text-xs font-mono uppercase tracking-wider bg-[#C9973E] text-[#0B1E3D] hover:bg-[#d9a94f] transition-colors ml-2"
+              className="px-4 py-2 rounded-lg text-xs font-mono uppercase tracking-wider bg-[#C9973E] text-[#0B1E3D] hover:bg-[#d9a94f] transition-colors md:ml-2"
             >
               ⬇ Export CSV
             </button>
@@ -335,67 +335,119 @@ export default function DashboardShell({ leads, error }: { leads: Lead[]; error?
 
         </div>
 
-        <div className="bg-white rounded-2xl border border-[#0B1E3D]/10 overflow-hidden animate-fadeUp" style={{ animationDelay: "0.36s" }}>
-
-          <div className="grid grid-cols-[0.6fr_1.4fr_1.3fr_1.2fr_1fr_0.9fr_0.9fr] gap-4 px-6 py-4 bg-[#0B1E3D] text-[#F7F1E4]/60 font-mono text-[10px] tracking-widest uppercase">
-            <span>Student</span>
-            <span>Route</span>
-            <span>Course</span>
-            <span>Intake</span>
-            <span>Status</span>
-            <span>Queued</span>
-            <span></span>
+        {filtered.length === 0 && (
+          <div className="bg-white rounded-2xl border border-[#0B1E3D]/10 px-6 py-16 text-center animate-fadeUp" style={{ animationDelay: "0.36s" }}>
+            <p className="font-display text-xl text-[#0B1E3D]/50 mb-2">No enquiries yet</p>
+            <p className="text-sm text-[#0B1E3D]/40">New conversations from the desk will appear here automatically.</p>
           </div>
+        )}
 
-          {filtered.length === 0 && (
-            <div className="px-6 py-16 text-center">
-              <p className="font-display text-xl text-[#0B1E3D]/50 mb-2">No enquiries yet</p>
-              <p className="text-sm text-[#0B1E3D]/40">New conversations from the desk will appear here automatically.</p>
+        {/* Desktop table */}
+        {filtered.length > 0 && (
+          <div className="hidden md:block bg-white rounded-2xl border border-[#0B1E3D]/10 overflow-hidden animate-fadeUp" style={{ animationDelay: "0.36s" }}>
+
+            <div className="grid grid-cols-[0.6fr_1.4fr_1.3fr_1.2fr_1fr_0.9fr_0.9fr] gap-4 px-6 py-4 bg-[#0B1E3D] text-[#F7F1E4]/60 font-mono text-[10px] tracking-widest uppercase">
+              <span>Student</span>
+              <span>Route</span>
+              <span>Course</span>
+              <span>Intake</span>
+              <span>Status</span>
+              <span>Queued</span>
+              <span></span>
             </div>
-          )}
 
-          {filtered.map((lead, i) => {
-            const qualified = Boolean(lead.country && lead.course);
-            const dest = destFor(lead.destination);
-            return (
-              <button
-                key={lead.id}
-                onClick={() => setSelectedLead(lead)}
-                className="w-full grid grid-cols-[0.6fr_1.4fr_1.3fr_1.2fr_1fr_0.9fr_0.9fr] gap-4 px-6 py-4 border-t border-dashed border-[#0B1E3D]/10 hover:bg-[#F7F1E4]/60 transition-colors text-sm text-[#0B1E3D] text-left animate-fadeUp"
-                style={{ animationDelay: `${Math.min(i * 0.04, 0.6)}s` }}
-              >
-                <span className="w-8 h-8 rounded-full bg-[#0B1E3D] text-[#C9973E] flex items-center justify-center font-mono text-[10px] font-medium">
-                  {initials(lead.name)}
-                </span>
-
-                <span className="flex items-center gap-2 text-[#0B1E3D]/80">
-                  <span>{flagFor(lead.country)}</span>
-                  <span className="font-mono text-xs text-[#0B1E3D]/40">{lead.country ? lead.country.slice(0, 3).toUpperCase() : "—"}</span>
-                  <span className="text-[#0B1E3D]/20">···✈···</span>
-                  <span className="font-mono text-xs text-[#0B1E3D]/40">{dest.code}</span>
-                  <span>{dest.flag}</span>
-                </span>
-
-                <span className="text-[#0B1E3D]/70 truncate">{lead.course || "—"}</span>
-                <span className="text-[#0B1E3D]/70">{lead.intake || "—"}</span>
-
-                <span>
-                  <span className={
-                    "inline-block px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider " +
-                    (qualified ? "bg-[#1F8A5F]/10 text-[#1F8A5F]" : "bg-[#C9973E]/10 text-[#C9973E]")
-                  }>
-                    {qualified ? "Qualified" : "New"}
+            {filtered.map((lead, i) => {
+              const qualified = Boolean(lead.country && lead.course);
+              const dest = destFor(lead.destination);
+              return (
+                <button
+                  key={lead.id}
+                  onClick={() => setSelectedLead(lead)}
+                  className="w-full grid grid-cols-[0.6fr_1.4fr_1.3fr_1.2fr_1fr_0.9fr_0.9fr] gap-4 px-6 py-4 border-t border-dashed border-[#0B1E3D]/10 hover:bg-[#F7F1E4]/60 transition-colors text-sm text-[#0B1E3D] text-left animate-fadeUp"
+                  style={{ animationDelay: `${Math.min(i * 0.04, 0.6)}s` }}
+                >
+                  <span className="w-8 h-8 rounded-full bg-[#0B1E3D] text-[#C9973E] flex items-center justify-center font-mono text-[10px] font-medium">
+                    {initials(lead.name)}
                   </span>
-                </span>
 
-                <span className="font-mono text-xs text-[#0B1E3D]/40">{timeAgo(lead.created_at)}</span>
+                  <span className="flex items-center gap-2 text-[#0B1E3D]/80">
+                    <span>{flagFor(lead.country)}</span>
+                    <span className="font-mono text-xs text-[#0B1E3D]/40">{lead.country ? lead.country.slice(0, 3).toUpperCase() : "—"}</span>
+                    <span className="text-[#0B1E3D]/20">···✈···</span>
+                    <span className="font-mono text-xs text-[#0B1E3D]/40">{dest.code}</span>
+                    <span>{dest.flag}</span>
+                  </span>
 
-                <span className="text-[#0B1E3D]/30 text-right">→</span>
-              </button>
-            );
-          })}
+                  <span className="text-[#0B1E3D]/70 truncate">{lead.course || "—"}</span>
+                  <span className="text-[#0B1E3D]/70">{lead.intake || "—"}</span>
 
-        </div>
+                  <span>
+                    <span className={
+                      "inline-block px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider " +
+                      (qualified ? "bg-[#1F8A5F]/10 text-[#1F8A5F]" : "bg-[#C9973E]/10 text-[#C9973E]")
+                    }>
+                      {qualified ? "Qualified" : "New"}
+                    </span>
+                  </span>
+
+                  <span className="font-mono text-xs text-[#0B1E3D]/40">{timeAgo(lead.created_at)}</span>
+
+                  <span className="text-[#0B1E3D]/30 text-right">→</span>
+                </button>
+              );
+            })}
+
+          </div>
+        )}
+
+        {/* Mobile card list */}
+        {filtered.length > 0 && (
+          <div className="md:hidden space-y-3">
+            {filtered.map((lead, i) => {
+              const qualified = Boolean(lead.country && lead.course);
+              const dest = destFor(lead.destination);
+              return (
+                <button
+                  key={lead.id}
+                  onClick={() => setSelectedLead(lead)}
+                  className="w-full bg-white rounded-xl border border-[#0B1E3D]/10 p-4 text-left animate-fadeUp"
+                  style={{ animationDelay: `${Math.min(i * 0.04, 0.6)}s` }}
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-3">
+                      <span className="w-9 h-9 rounded-full bg-[#0B1E3D] text-[#C9973E] flex items-center justify-center font-mono text-[10px] font-medium shrink-0">
+                        {initials(lead.name)}
+                      </span>
+                      <div>
+                        <p className="font-medium text-[#0B1E3D] text-sm">{lead.name || "Unnamed"}</p>
+                        <p className="font-mono text-[10px] text-[#0B1E3D]/40">{timeAgo(lead.created_at)}</p>
+                      </div>
+                    </div>
+                    <span className={
+                      "px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider shrink-0 " +
+                      (qualified ? "bg-[#1F8A5F]/10 text-[#1F8A5F]" : "bg-[#C9973E]/10 text-[#C9973E]")
+                    }>
+                      {qualified ? "Qualified" : "New"}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-sm text-[#0B1E3D]/80 mb-2">
+                    <span>{flagFor(lead.country)}</span>
+                    <span className="font-mono text-xs text-[#0B1E3D]/50">{lead.country ? lead.country.slice(0, 3).toUpperCase() : "—"}</span>
+                    <span className="text-[#0B1E3D]/20">···✈···</span>
+                    <span className="font-mono text-xs text-[#0B1E3D]/50">{dest.code}</span>
+                    <span>{dest.flag}</span>
+                  </div>
+
+                  <div className="flex items-center justify-between text-xs text-[#0B1E3D]/60 border-t border-dashed border-[#0B1E3D]/10 pt-2 mt-2">
+                    <span className="truncate">{lead.course || "No course yet"}</span>
+                    <span className="shrink-0 ml-2">{lead.intake || "—"}</span>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        )}
 
       </main>
 
