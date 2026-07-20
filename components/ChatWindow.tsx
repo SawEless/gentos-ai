@@ -41,6 +41,8 @@ function getDestInfo(destination: string) {
   return DEST_INFO[key] || { code: destination.slice(0, 3).toUpperCase(), flag: "🌍" };
 }
 
+const CALENDLY_URL = "https://calendly.com/shaileshbhattarai789/30min";
+
 export default function ChatWindow(){
 
   const [message, setMessage] = useState("");
@@ -118,6 +120,10 @@ export default function ChatWindow(){
     }
   }
 
+  function openBooking(){
+    window.open(CALENDLY_URL, "_blank", "noopener,noreferrer");
+  }
+
   const originInfo = lead?.country ? getCountryInfo(lead.country) : null;
   const destInfo = lead?.destination ? getDestInfo(lead.destination) : { code: "···", flag: "🌍" };
 
@@ -125,7 +131,6 @@ export default function ChatWindow(){
 
     <div className="bg-[#0B1E3D] rounded-2xl border border-[#C9973E]/30 overflow-hidden shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]">
 
-      {/* header strip */}
       <div className="flex items-center justify-between px-6 py-3 border-b border-[#C9973E]/20">
         <p className="font-mono text-[10px] tracking-widest uppercase text-[#C9973E]">Enquiry Desk</p>
         <div className="flex items-center gap-2">
@@ -134,7 +139,6 @@ export default function ChatWindow(){
         </div>
       </div>
 
-      {/* live flight strip — appears once country is known */}
       {originInfo && (
         <div
           key={lead.country + (lead.destination || "")}
@@ -163,7 +167,6 @@ export default function ChatWindow(){
         </div>
       )}
 
-      {/* book consultation CTA — appears once qualified */}
       {lead?.country && lead?.course && (
         <div className="px-6 py-4 border-b border-[#C9973E]/20 bg-[#C9973E]/5 animate-[fadeIn_0.4s_ease-out]">
           <div className="flex items-center justify-between gap-4">
@@ -171,14 +174,12 @@ export default function ChatWindow(){
               <p className="font-mono text-[9px] tracking-widest uppercase text-[#C9973E] mb-1">Ready to board</p>
               <p className="text-sm text-[#F7F1E4]">You're qualified — book a free consultation to move forward.</p>
             </div>
-            
-              href="https://calendly.com/shaileshbhattarai789/30min"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={openBooking}
               className="shrink-0 bg-[#C9973E] text-[#0B1E3D] font-medium text-xs px-4 py-2.5 rounded-lg hover:bg-[#d9a94f] transition-colors whitespace-nowrap"
             >
               Book Consultation →
-            </a>
+            </button>
           </div>
         </div>
       )}
