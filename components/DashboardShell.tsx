@@ -14,6 +14,7 @@ interface Lead {
   intake: string;
   contact: string;
   notes: string;
+  language: string;
 }
 
 const FLAGS: Record<string, string> = {
@@ -128,9 +129,16 @@ function BoardingPassPanel({ lead, onClose }: { lead: Lead; onClose: () => void 
             <div className="border-t border-dashed border-[#0B1E3D]/15 mx-6"></div>
 
             <div className="px-7 py-6 space-y-5">
-              <div>
-                <p className="font-mono text-[10px] tracking-widest text-[#0B1E3D]/40 uppercase">Student</p>
-                <p className="font-display text-2xl text-[#0B1E3D] mt-1">{lead.name || "Not provided yet"}</p>
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="font-mono text-[10px] tracking-widest text-[#0B1E3D]/40 uppercase">Student</p>
+                  <p className="font-display text-2xl text-[#0B1E3D] mt-1">{lead.name || "Not provided yet"}</p>
+                </div>
+                {lead.language && lead.language.toLowerCase() !== "english" && (
+                  <span className="font-mono text-[9px] tracking-widest uppercase text-[#C9973E] border border-[#C9973E]/30 rounded-full px-2.5 py-1">
+                    Spoke {lead.language}
+                  </span>
+                )}
               </div>
 
               <div className="grid grid-cols-2 gap-5">
@@ -230,10 +238,10 @@ export default function DashboardShell({ leads, error }: { leads: Lead[]; error?
   const qualifiedCount = leads.filter(l => l.country && l.course).length;
 
   function exportToCSV() {
-    const headers = ["Name", "Country", "Destination", "Education", "Course", "Intake", "Contact", "Notes", "Created At"];
+    const headers = ["Name", "Country", "Destination", "Education", "Course", "Intake", "Contact", "Notes", "Language", "Created At"];
 
     const rows = filtered.map(l => [
-      l.name, l.country, l.destination, l.education, l.course, l.intake, l.contact, l.notes, l.created_at
+      l.name, l.country, l.destination, l.education, l.course, l.intake, l.contact, l.notes, l.language, l.created_at
     ]);
 
     const csvContent = [headers, ...rows]

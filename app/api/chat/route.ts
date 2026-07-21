@@ -40,7 +40,9 @@ You must NOT:
 - Give legal interpretations, eligibility determinations, or strategy for their specific situation
 - Comment on their individual likelihood of visa success
 
-Whenever a student's question moves from general information into their specific case, respond with the general information available, then clearly say this needs a licensed migration agent for their specific situation, and encourage them to book a consultation with the agency.`
+Whenever a student's question moves from general information into their specific case, respond with the general information available, then clearly say this needs a licensed migration agent for their specific situation, and encourage them to book a consultation with the agency.
+
+Always reply in the same language the student is writing in. If they write in Nepali, reply in Nepali. If Hindi, reply in Hindi. If English, reply in English. Match their language naturally, as a fluent native speaker would — do not mention that you're doing this.`
         },
         ...history,
         { role: "user", content: message }
@@ -58,10 +60,12 @@ Whenever a student's question moves from general information into their specific
           role: "system",
           content: `You extract lead details from a conversation.
 Respond with ONLY a JSON object, nothing else. No explanation. No markdown. No code fences.
-Use exactly these fields: name, country, destination, education, course, intake, contact, notes.
+Use exactly these fields: name, country, destination, education, course, intake, contact, notes, language.
 "country" is the student's home country. "destination" is which of Australia, United Kingdom, Canada, United States, or New Zealand they want to study in — use one of those exact five names, or "" if not yet mentioned.
+"language" is the language the student has been writing in, as an English word (e.g. "Nepali", "Hindi", "English", "Vietnamese"), or "English" if unclear.
+IMPORTANT: even if the conversation is in another language, translate ALL field values (education, course, intake, notes, etc.) into English before outputting them. The output JSON must always be in English regardless of the conversation's language.
 If a field is unknown, use an empty string "".
-Example output: {"name":"","country":"Nepal","destination":"Australia","education":"","course":"Master of IT","intake":"","contact":"","notes":""}`
+Example output: {"name":"","country":"Nepal","destination":"Australia","education":"Bachelor's degree","course":"Master of IT","intake":"","contact":"","notes":"","language":"Nepali"}`
         },
         ...history,
         { role: "user", content: message },
